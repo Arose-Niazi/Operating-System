@@ -3,6 +3,8 @@
     Started on: 24/9/2020
  */
 
+import java.util.Scanner;
+
 public class Simpletron {
     /*
         Input output operations constants.
@@ -32,7 +34,11 @@ public class Simpletron {
     private static final int BRANCHZ = 42;
     private static final int HALT = 43;
 
+    /*
+        Customizable Settings
+     */
     private static final int END = -9999;
+    private static final char IDENTIFIER = '?';
 
     /*
         Variables
@@ -42,5 +48,38 @@ public class Simpletron {
     private int instructionCounter;
     private int instructionRegister;
 
-    
+    /*
+        Working
+     */
+    public Simpletron()
+    {
+        memory = new int[100];
+        accumulator= instructionCounter= instructionRegister= 0;
+        boot();
+        run();
+    }
+
+    private void boot()
+    {
+        System.out.println("*** Welcome to Simpletron! ***\n" +
+                "*** Please enter your program one instruction ***\n" +
+                "*** (or data word) at a time. I will display ***\n" +
+                "*** the location number and a question mark ("+ IDENTIFIER +"). ***\n" +
+                "*** You then type the word for that location. ***\n" +
+                "*** Type "+ END +" to stop entering your program. ***");
+    }
+
+    private void run()
+    {
+        int input=0;
+        Scanner scanner = new Scanner(System.in);
+        for(int counter=0; counter<memory.length && input != END; counter++)
+        {
+            System.out.printf("%02d %c ",counter,IDENTIFIER);
+            input = scanner.nextInt();
+        }
+        System.out.println("*** Program loading completed ***\n" +
+                "*** Program execution begins ***");
+    }
+
 }
