@@ -32,4 +32,15 @@ public class Simpletron {
     private static final int BRANCHZ = 42;
     private static final int HALT = 43;
 
+    private static final int END = -9999;
+
+    /*
+        Variables
+     */
+    private int memory[];
+    private int accumulator;
+    private int instructionCounter;
+    private int instructionRegister;
+
+    
 }
