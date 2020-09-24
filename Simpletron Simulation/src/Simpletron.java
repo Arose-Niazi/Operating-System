@@ -150,8 +150,7 @@ public class Simpletron {
         compute();
     }
 
-    private void memoryDump()
-    {
+    private void memoryDump() {
         System.out.println("REGISTERS:");
         System.out.printf("%-20s %+05d%n","accumulator",accumulator);
         System.out.printf("%-22s  %02d%n","instructionCounter",instructionCounter);
