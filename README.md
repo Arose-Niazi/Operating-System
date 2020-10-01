@@ -9,12 +9,15 @@
   - Src
     - Simpletorn.java 
     - Runner.java
-  - Simpletron C
-    - Simpletron.c -> Main working of simpletron
-    - Simpletron.h -> Header file for Simpletron
-    - main.c 
-    - Makefile
-    - Programs
-      - 7.34.txt
-      - 7.35.txt
+- Simpletron C
+  - Simpletron.c -> Main working of simpletron
+  - Simpletron.h -> Header file for Simpletron
+  - main.c 
+  - Makefile
+  - Programs
+    - 7.34.txt
+    - 7.35.txt
+- Lab Task 1
+  - main.c
+  - myheader.h
 
