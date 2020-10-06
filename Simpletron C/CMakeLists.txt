@@ -3,4 +3,4 @@ project(Simpletron_C C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(Simpletron_C main.c)
+add_executable(Simpletron_C simple.c)
