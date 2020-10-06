@@ -7,42 +7,8 @@
  * Includes
  */
 #include <stdio.h>
-
-/*
-    Input output operations constants.
-*/
-#define READ        10
-#define WRITE       11
-
-/*
-    Load store operations constants.
-*/
-#define LOAD            20
-#define STORE           21
-
-/*
-    Calculation operations constants.
-*/
-#define ADD             30
-#define SUB             31
-#define DIV             32
-#define MUL             33
-
-/*
-    Control operations constants.
-*/
-#define BRANCH          40
-#define BRANCHN         41
-#define BRANCHZ         42
-#define HALT            43
-
-/*
-    Customizable Settings
- */
-#define END             -9999
-#define IDENTIFIER_NAME "question mark"
-#define IDENTIFIER      '?'
-#define SIZE            100
+#include "simple.h"
+#include "util.h"
 
 /*
     Variables
@@ -54,13 +20,20 @@ int instructionRegister;
 int operand;
 int operation;
 
+
+/*
+    Functions
+*/
+
 void boot() {
     printf("*** Welcome to Simpletron! ***\n"
            "*** Please enter your program instructions file ***\n"
            "*** The %s (%c) indicates that Simpletorn expects input ***", IDENTIFIER_NAME,IDENTIFIER);
 }
 
-void getInstructions(FILE *file) {
+void getInstructions(FILE *file)
+{
+	printf("\nLoading Integers\n");
     int counter = 0;
     while (fscanf(file, "%d", &memory[counter++]) == 1)
     {
@@ -70,6 +43,28 @@ void getInstructions(FILE *file) {
         }
         if(counter == SIZE) break;
     }
+}
+
+void memoryDump() {
+    printf("REGISTERS:\n");
+    printf("%-20s %+05d\n","accumulator",accumulator);
+    printf("%-22s  %02d\n","instructionCounter",instructionCounter);
+    printf("%-20s %+05d\n","instructionRegister",instructionRegister);
+	printf("%-22s  %02d\n","operand",operand);
+	printf("%-22s  %02d\n\n","operation",operation);
+
+    printf("MEMORY:\n");
+    printf("   ");
+    for(int i=0; i< ((SIZE+10) % SIZE); i++)
+        printf("    %02d ",i);
+    for(int i=0; i<SIZE; i++) {
+        if(i % 10 == 0)
+            printf("\n%02d ",i);
+
+        printf(" %+05d ",memory[i]);
+    }
+    printf("\n\n*** Memory Dumped ***\n");
+
 }
 
 void compute() {
@@ -130,46 +125,32 @@ void compute() {
             printf("*** INVALID INSTRUCTION ***");
             return;
     }
+    memoryDump();
     instructionCounter++;
     compute();
 }
 
-void memoryDump() {
-    printf("REGISTERS:\n");
-    printf("%-20s %+05d\n","accumulator",accumulator);
-    printf("%-22s  %02d\n","instructionCounter",instructionCounter);
-    printf("%-20s %+05d\n\n","instructionRegister",instructionRegister);
-
-    printf("MEMORY:\n");
-    printf("   ");
-    for(int i=0; i< ((SIZE+10) % SIZE); i++)
-        printf("    %02d ",i);
-    for(int i=0; i<SIZE; i++) {
-        if(i % 10 == 0)
-            printf("\n%02d ",i);
-
-        printf(" %+05d ",memory[i]);
-    }
-    printf("\n\n*** Memory Dumped ***\n");
-
-}
-
 void runSimpletron(const char filename[]) {
     boot();
-    FILE *file;
-    file = fopen(filename, "r");
-    if(!file)
-    {
-        printf("*** INVALID FILE ****\n"
-               "*** Execution Terminated ***");
-        return;
-    }
-    printf("\nLoading Program from: %s\n",filename);
-    getInstructions(file);
-
+	
+	FILE *file = loadFile(filename);
+	
+	if(file == NULL) return;
+	getInstructions(file);
+	
     printf("*** Program loading completed ***\n"
            "*** Program execution begins ***\n");
 
     compute();
     memoryDump();
 }
+
+/*
+    Main Function!
+*/
+
+int main(int counter, char *values[]) {
+    runSimpletron(values[1]);
+    return 0;
+}
+
