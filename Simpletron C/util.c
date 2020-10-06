@@ -38,25 +38,18 @@ FILE * loadFile(const char filename[])
     {
 		printf("\n*** INVALID FILE ****\n"
      			"*** Execution Terminated ***\n");
-        return NULL;
     }
 	return file;
 }
 
 
 
-void getInstructions(FILE *file)
+void loadInstructions(FILE *file)
 {
     printf("\nLoading Integers\n");
     int counter = 0;
-    while (fscanf(file, "%d", &memory[counter++]) == 1)
-    {
-        if(memory[counter-1] > 9999 || memory[counter-1] < -9999) {
-            counter--;
-            continue;
-        }
-        if(counter == SIZE) break;
-    }
+    while (fscanf(file, "%d", &memory[counter++]))
+    	if(counter == SIZE) break;
 }
 
 void memoryDump() {
@@ -149,7 +142,7 @@ void runSimpletron(const char filename[]) {
     FILE *file = loadFile(filename);
 
     if(file == NULL) return;
-    getInstructions(file);
+    loadInstructions(file);
 
     printf("*** Program loading completed ***\n"
            "*** Program execution begins ***\n");

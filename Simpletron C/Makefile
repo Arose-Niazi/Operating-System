@@ -12,3 +12,6 @@ clean:
 	
 tar:
 	tar -cvf FA18_BSE_010_A1.tar simple.c simple.h util.c Makefile
+
+dtar:
+	rm FA18_BSE_010_A1.tar

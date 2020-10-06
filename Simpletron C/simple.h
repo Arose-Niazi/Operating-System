@@ -35,7 +35,6 @@
 /*
     Customizable Settings
  */
-#define END             -9999
 #define IDENTIFIER_NAME "question mark"
 #define IDENTIFIER      '?'
 #define SIZE            100
