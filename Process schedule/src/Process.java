@@ -40,7 +40,6 @@ public class Process {
                     arrivalTime--;
                 else
                     waitingTime++;
-
             }
 
         }
@@ -76,11 +75,6 @@ public class Process {
 
     public boolean isCompleted() {
         return completed;
-    }
-
-    public int getProcessTime()
-    {
-        return processTime;
     }
 
     public int getTurnaroundTime() {

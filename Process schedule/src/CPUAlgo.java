@@ -1,45 +1,30 @@
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 public abstract class CPUAlgo {
-    private static int processes;
     private static LinkedList<Process> processInfo;
-
-    private static int time;
+    private static LinkedList<Process> allProcesses;
     private Process process;
 
-    private static String algorithm = "";
+    private static String algorithm;
 
-    public static void setValues(int p, LinkedList<Process> pi)
+    public Comparator comparator;
+
+    public static void setValues(LinkedList<Process> pi)
     {
-        setProcesses(p);
         setProcessInfo(pi);
-        setTime(0);
+        allProcesses = new LinkedList<>(pi);
     }
-
-    public abstract void sort();
-
-    public static void run(int c, int p, LinkedList<Process> pi)
-    {
-
-
-    }
-
 
     void passTime()
     {
-
         if(getProcess() != null)
         {
             if(!getProcess().isLoaded())
             {
-                System.out.println("Process Complete: " + getProcess().getId());
-                System.out.println("AT: " + getProcess().getArrivalTime() + "-> " + getProcess().getId());
-                System.out.println("BT: " + getProcess().getBurstTime() + "-> " + getProcess().getId());
-                System.out.println("WT: " + getProcess().getWaitingTime() + "-> " + getProcess().getId());
-                System.out.println("PT: " + getProcess().getProcessTime() + "-> " + getProcess().getId());
-
+                getProcessInfo().remove(getProcess());
                 setProcess(null);
-                setProcesses(getProcesses()-1);
             }
         }
     }
@@ -55,7 +40,6 @@ public abstract class CPUAlgo {
                     {
                         process.setLoaded(true);
                         setProcess(process);
-                        System.out.println("Loaded process: " + process.getId());
                         break;
                     }
                 }
@@ -66,19 +50,9 @@ public abstract class CPUAlgo {
 
     public static void printInfo()
     {
-        System.out.println("\n-------> OUTPUT <---------");
-        System.out.println("Algorithm: " + algorithm);
-        System.out.println("Total Time Taken: " + getTotalTime());
+        System.out.println(algorithm);
         System.out.println("Total Time waiting: " + getWaitingTime());
         System.out.println("Average turnaround time: " + getTurnAroundAvg());
-    }
-
-    public static int getProcesses() {
-        return processes;
-    }
-
-    public static void setProcesses(int processes) {
-        CPUAlgo.processes = processes;
     }
 
     public static LinkedList<Process> getProcessInfo() {
@@ -89,18 +63,28 @@ public abstract class CPUAlgo {
         CPUAlgo.processInfo = processInfo;
     }
 
-    public static int getTime() {
-        return time;
+    private static int getWaitingTime()
+    {
+        int waitingTime=0;
+        for (Process process: allProcesses) {
+            waitingTime+=process.getWaitingTime();
+        }
+        return waitingTime;
     }
 
-    public static void setTime(int time) {
-        CPUAlgo.time = time;
+    private static int getTurnAroundTime()
+    {
+        int ptime=0;
+        for (Process process: allProcesses) {
+            ptime+=process.getTurnaroundTime();
+        }
+        return ptime;
     }
 
-    public static void addTime() {
-        CPUAlgo.time++;
+    private static float getTurnAroundAvg()
+    {
+        return (float) getTurnAroundTime() / (float) allProcesses.size();
     }
-
 
     public Process getProcess() {
         return process;
@@ -110,32 +94,9 @@ public abstract class CPUAlgo {
         this.process = process;
     }
 
-    public static int getTotalTime()
-    {
-        return time-1; //Fixing my offset
-    }
-
-    public static int getWaitingTime()
-    {
-        int wtime=0;
-        for (Process process: processInfo) {
-            wtime+=process.getWaitingTime();
-        }
-        return wtime;
-    }
-
-    private static int getTurnAroundTime()
-    {
-        int ptime=0;
-        for (Process process: processInfo) {
-            ptime+=process.getTurnaroundTime();
-        }
-        return ptime;
-    }
-
-    public static float getTurnAroundAvg()
-    {
-        return (float) getTurnAroundTime() / (float) processInfo.size();
+    public void setComparator(Comparator comparator) {
+        this.comparator = comparator;
+        Collections.sort(getProcessInfo(), comparator);
     }
 
     public static void setAlgorithm(String algorithm) {

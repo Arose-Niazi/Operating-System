@@ -42,16 +42,11 @@ public class Main {
             Scanner input = new Scanner(file);
             cores = input.nextInt();
             processes = input.nextInt();
-            System.out.println("Cores: " + cores + "\nProcesses: " + processes);
             processInfo = new LinkedList<>();
             for(int i=0; i<processes; i++)
             {
                 Process process = new Process(input.nextInt(), input.nextInt(), input.nextInt(), input.nextInt());
                 processInfo.add(process);
-                System.out.println("Process ID: " + process.getId());
-                System.out.println("\tArrival Time: " + process.getArrivalTime());
-                System.out.println("\tBurst Time: " + process.getBurstTime());
-                System.out.println("\tPriority: " + process.getPriority());
             }
         }
         catch (FileNotFoundException e)
@@ -67,7 +62,7 @@ public class Main {
 
     private static void simulate()
     {
-        CPUAlgo.setValues(processes, processInfo);
+        CPUAlgo.setValues(processInfo);
         LinkedList<CPUAlgo> myCores = new LinkedList<>();
         switch (algorithm)
         {
@@ -96,18 +91,11 @@ public class Main {
                 return;
             }
         }
-        myCores.get(0).sort(); //Sorting
-        for(Process x : CPUAlgo.getProcessInfo())
-        {
-            System.out.println(x.getId());
-        }
-        while (CPUAlgo.getProcesses() > 0)
+        while (!CPUAlgo.getProcessInfo().isEmpty())
         {
             for(Process process: CPUAlgo.getProcessInfo()) {
                 process.passTime();
             }
-            System.out.println("----------- Time " + (CPUAlgo.getTime()) + "----------------");
-            CPUAlgo.addTime();
             for (CPUAlgo core : myCores) {
                 core.passTime();
                 core.selectProcess();
