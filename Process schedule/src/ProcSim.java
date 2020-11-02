@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class Main {
+public class ProcSim {
 
     private static File file;
     private static int algorithm;
