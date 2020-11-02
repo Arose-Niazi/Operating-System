@@ -8,7 +8,7 @@ public class FCFS extends CPUAlgo {
         selectProcess();
     }
 
-    class CompareProcess implements Comparator<Process>
+    static class CompareProcess implements Comparator<Process>
     {
         public int compare(Process p1, Process p2)
         {

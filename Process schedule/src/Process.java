@@ -1,5 +1,3 @@
-import java.util.Comparator;
-
 public class Process {
     private final int id;
     private int arrivalTime;

@@ -9,7 +9,7 @@ public abstract class CPUAlgo {
 
     private static String algorithm;
 
-    public Comparator comparator;
+    public Comparator<Process> comparator;
 
     public static void setValues(LinkedList<Process> pi)
     {
@@ -94,7 +94,7 @@ public abstract class CPUAlgo {
         this.process = process;
     }
 
-    public void setComparator(Comparator comparator) {
+    public void setComparator(Comparator<Process> comparator) {
         this.comparator = comparator;
         Collections.sort(getProcessInfo(), comparator);
     }
