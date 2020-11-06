@@ -6,17 +6,23 @@
 
 ## Files
 - Simpletron Simulation
-  - Src
-    - Simpletorn.java 
-    - Runner.java
+	- Src
+		- Simpletorn.java 
+		- Runner.java
 - Simpletron C
-  - simple.c -> Main Runner
-  - simple.h -> Header file for Simpletron
-  - util.c  -> Main Working
-  - Makefile
+	- simple.c -> Main Runner
+	- simple.h -> Header file for Simpletron
+	- util.c  -> Main Working
+	- Makefile
 - Lab Task 1
-  - main.c
-  - myheader.h
+	- main.c
+	- myheader.h
 - Sessional 1
-  - fork_stat.c
-
+	- fork_stat.c
+- Process schedule
+	- ProcSim.java -> Main
+	- Process.java
+	- CPUAlgo.java -> The processing
+	- FCFS.java
+	- SJF.java
+	- Priority.java
