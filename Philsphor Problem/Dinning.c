@@ -112,7 +112,7 @@ void initializeSemaphore()
     semun arg;
 	unsigned short chopCount[MAX_PHILPOSHERS];
     for(int i = 0; i < MAX_PHILPOSHERS; i++)
-        chopCount[i] = 0;
+        chopCount[i] = 1;
     arg.array = chopCount;
         
     if(semctl(semaphoreID, 0, SETALL, arg) == -1) 
@@ -132,28 +132,6 @@ void think(Philosopher philosopher)
 void hungry(Philosopher philosopher)
 {
 	printf("Philosopher number %d wants to eat\n", philosopher.id);
-
-	semun arg;
-	unsigned short chopCount[2];
-    struct sembuf sops[2];
-
-	arg.array = chopCount;
-
-	sops[0].sem_num = philosopher.right;
-	sops[1].sem_num = philosopher.left;
-    for(int i=0; i<2; i++)
-    {
-        sops[i].sem_op = 0;
-        sops[i].sem_flg = 0;
-    }
-    
-
-	if(semop(semaphoreID, sops, 2) < 0)
-    {
-        perror("Semop error ");
-        exit(1);
-    }
-
 	takeChops(philosopher);
 }
 
@@ -169,7 +147,7 @@ void takeChops(Philosopher philosopher)
 	sops[1].sem_num = philosopher.left;
     for(int i=0; i<2; i++)
     {
-        sops[i].sem_op = 1;
+        sops[i].sem_op = -1;
         sops[i].sem_flg = 0;
     }
 
@@ -203,7 +181,7 @@ void finish(Philosopher philosopher)
 	sops[1].sem_num = philosopher.left;
     for(int i=0; i<2; i++)
     {
-        sops[i].sem_op = -1;
+        sops[i].sem_op = 1;
         sops[i].sem_flg = 0;
     }
 
