@@ -26,3 +26,16 @@
 	- FCFS.java
 	- SJF.java
 	- Priority.java
+- Philospher Problem
+	- Dinning.c
+- Sessional 2
+	- S2.c -> Baker Bakes, in one basket and clients eat.
+- Matrix Self Dot Product
+	- MatMult.java
+- Final
+	- Question1.c -> GREP WC Using Execl
+	- Server.c 
+	- Client.c -> Exact code of sir to test out the working.
+	
+
+
