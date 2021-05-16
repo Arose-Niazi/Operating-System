@@ -33,7 +33,7 @@ int main(void)
     dup2(myPipe[OUTPUT], STDOUT_FILENO);
     close(myPipe[INPUT]);
     close(myPipe[OUTPUT]);
-    execl("/bin/sh", "/bin/sh", "-c", "grep mon /etc/passwd", NULL);
+    execl("/bin/grep", "grep", "mon", "/etc/passwd", NULL);
   }
   else
   {
